@@ -14,15 +14,15 @@ class CreateMoneiesTable extends Migration
     public function up()
     {
         Schema::create('moneies', function (Blueprint $table) {
-            $table->id();
-            $table->integer('category_money_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+            $table->id()->unsigned();
+            $table->bigInteger('category_money_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
             $table->float('amount')->default(0);
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('category_money_id')->references('id')->on('category_money')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+//            $table->foreign('category_money_id')->references('id')->on('category_money')->onDelete('cascade');
+//            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

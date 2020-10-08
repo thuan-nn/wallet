@@ -14,7 +14,7 @@ class CreateCategoryWalletTable extends Migration
     public function up()
     {
         Schema::create('category_wallet', function (Blueprint $table) {
-            $table->id();
+            $table->id()->unsigned();
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();

@@ -14,7 +14,7 @@ class CreateCategoryMoneyTable extends Migration
     public function up()
     {
         Schema::create('category_money', function (Blueprint $table) {
-            $table->id();
+            $table->id()->unsigned();
             $table->string('name');
             $table->integer('type');
             $table->timestamps();
