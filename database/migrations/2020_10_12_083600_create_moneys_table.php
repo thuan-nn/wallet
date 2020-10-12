@@ -4,18 +4,17 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoryWalletTable extends Migration
-{
+class CreateMoneysTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
-        Schema::create('category_wallet', function (Blueprint $table) {
-            $table->id()->unsigned();
-            $table->string('name');
+    public function up() {
+        Schema::create('moneys', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('wallet_id')->references('id')->on('wallets')->onDelete('cascade');
+            $table->float('amount');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -26,8 +25,7 @@ class CreateCategoryWalletTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
-        Schema::dropIfExists('category_wallet');
+    public function down() {
+        Schema::dropIfExists('moneys');
     }
 }
