@@ -45,6 +45,7 @@ class AuthController extends Controller {
 
     public function me(Request $request) {
         $user = $request->user('api');
+
         return responder()->success($user, UserTransformer::class)->respond();
     }
 }

@@ -14,12 +14,4 @@ class Wallet extends Model {
         'wallet_category_id',
         'name'
     ];
-
-    public function user() {
-        return $this->belongsTo(User::class, 'user_id', 'id');
-    }
-
-    public function categoryWallet() {
-        return $this->belongsTo(CategoryWallet::class, 'category_wallet_id', 'id');
-    }
 }

@@ -49,13 +49,5 @@ class User extends Authenticatable {
 
     public function setPasswordAttribute($value) {
         $this->attributes['password'] = Hash::make($value);
-     }
-
-    public function wallets() {
-        return $this->hasMany(Wallet::class, 'user_id', 'id');
-    }
-
-    public function moneies() {
-        return $this->hasMany(Money::class, 'user_id', 'id');
     }
 }
