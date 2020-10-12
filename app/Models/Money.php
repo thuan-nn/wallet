@@ -12,12 +12,4 @@ class Money extends Model {
     protected $fillable = [
         'category_money_id', 'user_id', 'amount'
     ];
-
-    public function user() {
-        return $this->belongsTo(User::class, 'user_id', 'id');
-    }
-
-    public function categoryMoney() {
-        return $this->belongsTo(CategoryMoney::class, 'category_money_id', 'id');
-    }
 }

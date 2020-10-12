@@ -23,6 +23,5 @@ Route::post('login', [AuthController::class, 'login']);
 Route::middleware(['api'])->group(function () {
     Route::get('logout', [AuthController::class, 'logout']);
     Route::get('me', [AuthController::class, 'me']);
-    Route::resource('category-wallet', CategoryWalletController::class);
     Route::resource('wallets', WalletController::class);
 });
