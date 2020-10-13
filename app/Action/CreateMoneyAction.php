@@ -4,13 +4,15 @@
 namespace App\Action;
 
 
+use App\Enums\MoneyTypeEnum;
+use App\Models\Wallet;
 use Illuminate\Support\Facades\DB;
 
 class CreateMoneyAction {
     public function execute($data, $user) {
         try {
             DB::beginTransaction();
-            $user->money()->create($data);
+            $money = $user->money()->create($data);
 
             DB::commit();
         } catch (\Exception $exception) {
@@ -19,7 +21,6 @@ class CreateMoneyAction {
         }
     }
 
-    public function totalMoney() {
-
+    public function totalMoney(Wallet $wallet, $type, $amountMoney) {
     }
 }
