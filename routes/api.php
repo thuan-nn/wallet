@@ -18,7 +18,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('registry', [UserController::class, 'registry']);
+//Route::post('login', [AuthController::class, 'login']);
 Route::post('login', [AuthController::class, 'login']);
+
+
 
 Route::middleware(['api'])->group(function () {
     Route::get('logout', [AuthController::class, 'logout']);

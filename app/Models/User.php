@@ -12,6 +12,8 @@ use Laravel\Passport\HasApiTokens;
 class User extends Authenticatable {
     use HasFactory, HasApiTokens, Notifiable, SoftDeletes;
 
+    protected $table = 'users';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -52,6 +54,11 @@ class User extends Authenticatable {
     }
 
     // Relation ship
+
+    public function wallets() {
+        return $this->hasMany(Wallet::class, 'user_id', 'id');
+    }
+
     public function moneys() {
         return $this->hasManyThrough(Money::class,
                                      Wallet::class,

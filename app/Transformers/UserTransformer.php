@@ -5,14 +5,15 @@ namespace App\Transformers;
 use App\Models\User;
 use Flugg\Responder\Transformers\Transformer;
 
-class UserTransformer extends Transformer
-{
+class UserTransformer extends Transformer {
     /**
      * List of available relations.
      *
      * @var string[]
      */
-    protected $relations = [];
+    protected $relations = [
+        'wallets' => WalletTransformer::class
+    ];
 
     /**
      * List of autoloaded default relations.
@@ -22,13 +23,12 @@ class UserTransformer extends Transformer
     protected $load = [];
 
 
-    public function transform(User $user)
-    {
+    public function transform(User $user) {
         return [
-            'id' => (int) $user->id,
-            'name' => $user->name,
-            'phone_number' => $user->phone_number,
-            'email' => $user->email
+            'id'           => (int)$user->id,
+            'name'         => $user->name,
+            'number_phone' => $user->number_phone,
+            'email'        => $user->email
         ];
     }
 }

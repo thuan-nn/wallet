@@ -2,41 +2,45 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Filters\WalletFilter;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateWalletRequest;
+use App\Http\Requests\UpdateWalletRequest;
+use App\Models\Wallet;
+use App\Sorts\WalletSort;
+use App\Transformers\WalletTransformer;
 use Illuminate\Http\Request;
 
 class WalletController extends Controller {
     public function __construct() {
-        $this->middleware(['auth:api'])->except('login');
+        $this->middleware(['auth:api']);
     }
 
     /**
-     * Display a listing of the resource.
+     * @param Request      $request
+     * @param WalletFilter $walletFilter
+     * @param WalletSort   $walletSort
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index() {
-        //
-    }
+    public function index(Request $request, WalletFilter $walletFilter, WalletSort $walletSort) {
+        $wallets = Wallet::query()->filter($walletFilter)->sortBy($walletSort)->paginate((int)$request->get('perPage', 15));
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create() {
-        //
+        return responder()->success($wallets, WalletTransformer::class)->respond();
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param CreateWalletRequest $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request) {
-        //
+    public function store(CreateWalletRequest $request) {
+        $data = $request->validated();
+        $wallet = auth()->user()->wallets()->create($data);
+
+        return responder()->success($wallet, WalletTransformer::class)->respond();
     }
 
     /**
@@ -44,33 +48,25 @@ class WalletController extends Controller {
      *
      * @param int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id) {
-        //
+        $wallet = auth()->user()->wallets()->findOrFail($id);
+
+        return responder()->success($wallet, WalletTransformer::class)->respond();
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * @param UpdateWalletRequest $request
+     * @param                     $id
      *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function edit($id) {
-        //
-    }
+    public function update(UpdateWalletRequest $request, $id) {
+        $data = $request->validated();
+        auth()->user()->wallets()->findOrFail($id)->update($data);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id) {
-        //
+        return responder()->success()->respond();
     }
 
     /**
@@ -78,9 +74,11 @@ class WalletController extends Controller {
      *
      * @param int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id) {
-        //
+        auth()->user()->wallets()->findOrFail($id)->delete();
+
+        return responder()->success()->respond();
     }
 }

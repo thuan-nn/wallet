@@ -58,7 +58,7 @@ return [
     |
     */
 
-    'load_relations_parameter' => 'with',
+    'load_relations_parameter' => 'include',
 
     /*
     |--------------------------------------------------------------------------
