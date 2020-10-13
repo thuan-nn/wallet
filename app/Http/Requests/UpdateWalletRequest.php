@@ -22,7 +22,7 @@ class UpdateWalletRequest extends FormRequest {
     public function rules() {
         return [
             'name'           => 'sometimes|string',
-            'surplus_amount' => 'sometimes|numeric'
+            'surplus_amount' => 'sometimes|numeric|min:0'
         ];
     }
 }

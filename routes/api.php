@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryWalletController;
+use App\Http\Controllers\Api\MoneyController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\WalletController;
 use Illuminate\Support\Facades\Route;
@@ -18,13 +19,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('registry', [UserController::class, 'registry']);
-//Route::post('login', [AuthController::class, 'login']);
-Route::post('login', [AuthController::class, 'login']);
-
+Route::post('login', [AuthController::class, 'login'])->name('login');
 
 
 Route::middleware(['api'])->group(function () {
     Route::get('logout', [AuthController::class, 'logout']);
     Route::get('me', [AuthController::class, 'me']);
     Route::resource('wallets', WalletController::class);
+    Route::resource('moneys', MoneyController::class);
 });

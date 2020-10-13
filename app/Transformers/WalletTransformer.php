@@ -12,7 +12,8 @@ class WalletTransformer extends Transformer {
      * @var string[]
      */
     protected $relations = [
-        'user' => UserTransformer::class
+        'user'   => UserTransformer::class,
+        'moneys' => MoneyTransformer::class
     ];
 
     /**
